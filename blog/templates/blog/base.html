@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    {% if title %}
+        <title>PeN iT! - {{ title }}</title>
+    {% else %}
+        <title>PeN iT!</title> 
+    {% endif %}       
+</head>
+<body id="bg">
+  
+        <nav id ="mainnavbar" class="navbar navbar-expand-lg navbar-dark bg-steel  fixed-top">
+  <a class="navbar-brand" href="{% url 'blog-home' %}">PeN iT!</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+<div class="container">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'blog-home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+          <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-item nav-link bs" href="{% url 'user-posts' user.username %}">{{ user.username }}</a>
+        </li>
+      
+      {% endif %}
+      <li class="nav-item ">
+        <a class="nav-link" href="{% url 'blog-about' %}">About</a>
+      </li>
+      
+
+    </ul>
+    <div class ="navbar-nav">
+       {% if user.is_authenticated %}
+
+       <a class="nav-item nav-link" href="{% url 'logout' %}"><button type="button" class ="btn btn-warning btn-sm">Logout</button></a>
+       {% else %}
+        <a class="nav-item nav-link" href="{% url 'login' %}"><button type="button" class ="btn btn-success btn-sm">Login</button></a>
+        <a class="nav-item nav-link" href="{% url 'register'%}"><button type="button" class ="btn btn-warning btn-sm">Signup</button></a>
+        {% endif %}
+    </div>
+ 
+    
+  </div>
+ 
+</div>
+</nav>
+              <main role="main" class="container"  >
+                      <div class="centre">
+                        {% if messages %}
+                          {% for message in messages %}
+                          <div class = "alert alert-{{ message.tags }}">
+                           {{ message }}
+                          </div>
+                          {% endfor %}
+                        {% endif %}
+                        {% block content %}{% endblock %}
+                  </main>
+              
+                     <section id="footer">
+                       <div class="container">
+                          <hr>
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                              <ul class="list-unstyled list-inline social text-center">
+                                <li class="list-inline-item"><a href="https://www.facebook.com/imjashanchahal"><i class="fab fa-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="https://twitter.com/imJashanChahal"><i class="fab fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.instagram.com/imjashanchahal/"><i class="fab fa-instagram"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.reddit.com/user/imjashanchahal/"><i class="fab fa-reddit"></i></a></li>
+                                <li class="list-inline-item"><a href="https://github.com/JashanChahal" target="_blank"><i class="fab fa-github"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.linkedin.com/in/jashan-chahal-109068169" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                              </ul>
+                            </div>
+                            </hr>
+                          </div>	
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                            <p>Contact us</p>  <p class="h6">&copy All right Reversed.</p><p><a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">PeN iT!</a></p>
+                            <p>Developed by - Jashan Chahal</p><p>Chahaljashan123@gmail.com</p>
+
+                            </div>
+                            </hr>
+                          </div>	
+                        </div>
+                      </section>
+                    
+                  
+                  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body>
+</html>
